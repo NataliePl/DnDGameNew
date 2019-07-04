@@ -14,6 +14,8 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "dndSpells.db";
 
     public abstract SpellDao spellDao();
+    public abstract ClassDao classDao();
+    public abstract RelationDao relDao();
 
     private static AppDatabase instance;
 
