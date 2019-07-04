@@ -31,7 +31,7 @@ SpellDao spellDao = db.spellDao();
 
         ListView listView = findViewById(R.id.listShortSpell);
         final TextView textView = (TextView) findViewById(R.id.header);
-
+/**
         new AsyncTask<Void, Void, List<SpellLevelName>>() {
 
             // Обязательно НЕ в UI потоке, поэтому doInBackground
@@ -49,7 +49,7 @@ SpellDao spellDao = db.spellDao();
                 textView.setText(spells.toString());
             }
         }.execute();
-
+*/
         //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
         //       ListView listShortSpell = (ListView) findViewById(R.id.listShortSpell);
         //       ArrayAdapter<SpellLevelName> adapter=new ArrayAdapter<SpellLevelName>(this,android.R.layout.simple_list_item_2, spells);
