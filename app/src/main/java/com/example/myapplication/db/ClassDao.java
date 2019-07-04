@@ -9,8 +9,5 @@ import java.util.List;
 public interface ClassDao {
 
     @Query("SELECT class_name FROM classes")
-    public List<Class> getAllNameClasses();
-
-    @Query("SELECT class_name FROM classes")
-    public ClassName[] getAllNameClassesArr();
+    public List<String> getAllNameClassesArr();
 }
