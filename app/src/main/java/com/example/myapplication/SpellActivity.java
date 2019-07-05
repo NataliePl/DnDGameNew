@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,17 +25,19 @@ import java.util.List;
 public class SpellActivity extends AppCompatActivity {
 
     //вывод списка заклинаний
-    AppDatabase db = App.getInstance().getDatabase();
-    SpellDao spellDao = db.spellDao();
+
     //   private static final List<spells> spells = new Arraw
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spell);
 
-        ListView listView = findViewById(R.id.listShortSpell);
+
         final TextView textView = (TextView) findViewById(R.id.header);
+
+
 /**
  new AsyncTask<Void, Void, List<SpellLevelName>>() {
 
@@ -53,36 +56,62 @@ public class SpellActivity extends AppCompatActivity {
  }.execute();
  */
         //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
-        final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
-        BaseAdapter adapter = new BaseAdapter() {
+        new AsyncTask<Void, Void, List<Spell>>() {
+        @Override
+           protected List<Spell> doInBackground(Void... voids) {
+            AppDatabase db = App.getInstance().getDatabase();
+            SpellDao spellDao = db.spellDao();
+
+            final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
+            return spells;
+
+        }
             @Override
-            public int getCount() {
-                return spells.size();
-            }
+            protected void onPostExecute(List<Spell> spells) {
+                final List<Spell> spells2 = spells;
+                BaseAdapter adapter = new BaseAdapter() {
+                    @Override
+                    public int getCount() {
+                        return spells2.size();
+                    }
+                @Override
+                public Object getItem ( int i){
+                    return spells2.get(i);
+                }
 
-            @Override
-            public Object getItem(int i) {
-                return spells.get(i);
-            }
+                @Override
+                public long getItemId ( int i){
+                    return spells2.get(i)._id;
+                }
+                public View getView(int position, View view, ViewGroup viewGroup) {
+                    if(view == null)
+                        view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
 
-            @Override
-            public long getItemId(int i) {
-                return spells.get(i)._id;
-            }
+                    TextView level = view.findViewById(R.id.spellLevel);
+                    Integer levelSrt = spells2.get(position).level;
+                    level.setText(levelSrt.toString());
+                    TextView name = view.findViewById(R.id.spellName);
+                    name.setText(spells2.get(position).name);
 
-            @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
-                if(view == null)
-                    view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
+                    return view;
+                 }
 
-                TextView level = view.findViewById(R.id.spellLevel);
-                level.setText(spells.get(position).level);
 
-                return view;
-            }
+            };
+                ListView listView = findViewById(R.id.listShortSpell);
+                listView.setAdapter(adapter);
+        }}.execute();};
+;
+
+
+        {
+
+
         };
+    }
 
-        listView.setAdapter(adapter);
+
+
 
 
 //        new AsyncTask<Void, Void, List<Spell>>() {
@@ -95,7 +124,37 @@ public class SpellActivity extends AppCompatActivity {
 //        }.execute();
 
 
-    }
 
+/*
+protected List<Spell> doInBackground(Void... voids) {
 
+final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
+BaseAdapter adapter = new BaseAdapter() {
+@Override
+public int getCount() {
+return spells.size();
 }
+
+@Override
+public Object getItem(int i) {
+return spells.get(i);
+}
+
+@Override
+public long getItemId(int i) {
+return spells.get(i)._id;
+}
+
+@Override
+public View getView(int position, View view, ViewGroup viewGroup) {
+if(view == null)
+view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
+
+TextView level = view.findViewById(R.id.spellLevel);
+level.setText(spells.get(position).level);
+
+return view;
+}
+*/
+
+
