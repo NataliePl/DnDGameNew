@@ -3,12 +3,14 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
+import com.example.myapplication.db.Class;
 import com.example.myapplication.db.Spell;
 import com.example.myapplication.db.SpellDao;
 import com.example.myapplication.db.SpellLevelName;
@@ -23,7 +26,9 @@ import com.example.myapplication.db.SpellLevelName;
 import java.util.List;
 
 public class SpellActivity extends AppCompatActivity {
-
+ String Class;
+ int Level;
+ ListView listView;
     //вывод списка заклинаний
 
     //   private static final List<spells> spells = new Arraw
@@ -33,43 +38,26 @@ public class SpellActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spell);
-
-
+        Bundle arguments = getIntent().getExtras();
+        Class = arguments.get("Class").toString();
+        //Log.i("RFRF", Class);
+        Level = arguments.getInt("Level");
         final TextView textView = (TextView) findViewById(R.id.header);
 
-
-/**
- new AsyncTask<Void, Void, List<SpellLevelName>>() {
-
- // Обязательно НЕ в UI потоке, поэтому doInBackground
- @Override protected List<SpellLevelName> doInBackground(Void... voids) {
- return AppDatabase.getInstance(SpellActivity.this).spellDao().getAllShortSpells();
- }
-
-
- // Обязательно в UI потоке, поэтому onPostExecute
- @Override protected void onPostExecute(List<SpellLevelName> spells) {
- ArrayAdapter<SpellLevelName> adapter=new ArrayAdapter<SpellLevelName>(this,android.R.layout.spell, spells);
- //       listShortSpell.setAdapter(adapter);
- textView.setText(spells.toString());
- }
- }.execute();
- */
         //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
         new AsyncTask<Void, Void, List<Spell>>() {
         @Override
            protected List<Spell> doInBackground(Void... voids) {
             AppDatabase db = App.getInstance().getDatabase();
             SpellDao spellDao = db.spellDao();
-
-            final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
+            final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSelectedSpells(Class,Level);
             return spells;
 
         }
             @Override
             protected void onPostExecute(List<Spell> spells) {
                 final List<Spell> spells2 = spells;
-                BaseAdapter adapter = new BaseAdapter() {
+                final BaseAdapter adapter = new BaseAdapter() {
                     @Override
                     public int getCount() {
                         return spells2.size();
@@ -98,9 +86,26 @@ public class SpellActivity extends AppCompatActivity {
 
 
             };
-                ListView listView = findViewById(R.id.listShortSpell);
+                listView = findViewById(R.id.listShortSpell);
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(
+                        new AdapterView.OnItemClickListener(){
+                            @Override
+                            public void onItemClick (AdapterView<?> adapterView, View view, int i, long l){
+                                String val =listView.getItemAtPosition(i).toString();
+                                Intent intent = new Intent(SpellActivity.this,OneSpellActivity.class);
+                                intent.putExtra("Spell",val);
+
+                                startActivity(intent);
+
+                            }
+                        }
+                );
         }}.execute();
+
+
+
+
     }
 ;
 

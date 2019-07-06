@@ -4,28 +4,18 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
 
-
-import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
-import com.example.myapplication.db.ClassName;
 import com.example.myapplication.db.Spell;
-import com.example.myapplication.db.Class;
-import com.example.myapplication.db.SpellDao;
 
 import java.util.List;
 
@@ -38,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button button;
     TextView textView;
 
+    Intent intent;
+
     private SQLiteDatabase mDb;
 
 
@@ -45,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //TODO подключение к вьюМодел - метод не распознается - в документации он
-       final MyViewModel viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+        intent = new Intent(MainActivity.this,SpellActivity.class);
+//       final MyViewModel viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
 
         //спиннеры
 //        Spinner spinnerClasses = (Spinner) findViewById(R.id.spin_classes);
@@ -103,15 +95,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        spinnerClasses.setAdapter(adapter);
 //        }}.execute();
 
-        Spinner spinnerClasses = (Spinner) findViewById(R.id.spin_classes);
+        final Spinner spinnerClasses = (Spinner) findViewById(R.id.spin_classes);
         ArrayAdapter<String> adapterClasses = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, classes);
         adapterClasses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerClasses.setAdapter(adapterClasses);
+        spinnerClasses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
 
-        Spinner spinnerLevels = (Spinner) findViewById(R.id.spin_levels);
+                //String[] choose = getResources().getStringArray(R.array.animals);
+                String selected = spinnerClasses.getSelectedItem().toString();
+                intent.putExtra("Class", selected);
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ваш выбор: " + selected, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        final Spinner spinnerLevels = (Spinner) findViewById(R.id.spin_levels);
         ArrayAdapter<String> adapterLevels = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, levels);
         adapterLevels.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLevels.setAdapter(adapterLevels);
+        spinnerLevels.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+
+                //String[] choose = getResources().getStringArray(R.array.animals);
+                String selected = spinnerLevels.getSelectedItem().toString();
+                intent.putExtra("Level", Integer.parseInt(selected));
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Ваш выбор: " + selected, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 
         //тестирование считывания данных из БД по кнопке
@@ -147,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Кнопка переходна на второй активити
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, SpellActivity.class);
         startActivity(intent);
     }
 }

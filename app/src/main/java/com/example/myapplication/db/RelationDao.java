@@ -9,4 +9,6 @@ public interface RelationDao {
 
     @Query("SELECT _id, class_relation_id, spell_relation_id, class_level FROM relations")
     public List<Relations> getAllRelations();
+
+
 }

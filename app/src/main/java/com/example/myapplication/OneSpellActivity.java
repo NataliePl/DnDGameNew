@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import com.example.myapplication.db.SpellDao;
 import java.util.List;
 
 public class OneSpellActivity extends AppCompatActivity {
-
+String spell;
     //вывод списка заклинаний
 
     //   private static final List<spells> spells = new Arraw
@@ -30,8 +31,9 @@ public class OneSpellActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spell);
-
-
+        Bundle arguments = getIntent().getExtras();
+        spell = arguments.get("Spell").toString();
+        Log.i("RFRF", spell);
         final TextView textView = (TextView) findViewById(R.id.header);
 
 

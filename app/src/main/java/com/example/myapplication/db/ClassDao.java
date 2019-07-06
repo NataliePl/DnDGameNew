@@ -10,4 +10,6 @@ public interface ClassDao {
 
     @Query("SELECT * FROM classes")
     public List<Class> getAllClasses();
+
+
 }
