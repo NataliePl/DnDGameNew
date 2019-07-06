@@ -8,6 +8,6 @@ import java.util.List;
 @Dao
 public interface ClassDao {
 
-    @Query("SELECT class_name FROM classes")
-    public List<String> getAllNameClassesArr();
+    @Query("SELECT * FROM classes")
+    public List<Class> getAllClasses();
 }

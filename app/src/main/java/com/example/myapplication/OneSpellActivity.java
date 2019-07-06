@@ -1,28 +1,25 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
 import com.example.myapplication.db.Spell;
 import com.example.myapplication.db.SpellDao;
-import com.example.myapplication.db.SpellLevelName;
 
 import java.util.List;
 
-public class SpellActivity extends AppCompatActivity {
+public class OneSpellActivity extends AppCompatActivity {
 
     //вывод списка заклинаний
 
@@ -38,23 +35,6 @@ public class SpellActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.header);
 
 
-/**
- new AsyncTask<Void, Void, List<SpellLevelName>>() {
-
- // Обязательно НЕ в UI потоке, поэтому doInBackground
- @Override protected List<SpellLevelName> doInBackground(Void... voids) {
- return AppDatabase.getInstance(SpellActivity.this).spellDao().getAllShortSpells();
- }
-
-
- // Обязательно в UI потоке, поэтому onPostExecute
- @Override protected void onPostExecute(List<SpellLevelName> spells) {
- ArrayAdapter<SpellLevelName> adapter=new ArrayAdapter<SpellLevelName>(this,android.R.layout.spell, spells);
- //       listShortSpell.setAdapter(adapter);
- textView.setText(spells.toString());
- }
- }.execute();
- */
         //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
         new AsyncTask<Void, Void, List<Spell>>() {
         @Override
@@ -62,7 +42,7 @@ public class SpellActivity extends AppCompatActivity {
             AppDatabase db = App.getInstance().getDatabase();
             SpellDao spellDao = db.spellDao();
 
-            final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
+            final List<Spell> spells = AppDatabase.getInstance(OneSpellActivity.this).spellDao().getAllSpells();
             return spells;
 
         }
@@ -85,7 +65,7 @@ public class SpellActivity extends AppCompatActivity {
                 }
                 public View getView(int position, View view, ViewGroup viewGroup) {
                     if(view == null)
-                        view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
+                        view = LayoutInflater.from(OneSpellActivity.this).inflate(R.layout.spell, viewGroup, false);
 
                     TextView level = view.findViewById(R.id.spellLevel);
                     Integer levelSrt = spells2.get(position).level;
@@ -102,7 +82,7 @@ public class SpellActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
         }}.execute();
     }
-;
+
 
 
         {

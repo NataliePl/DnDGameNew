@@ -1,5 +1,6 @@
 package com.example.myapplication.db;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,6 +9,8 @@ public class Class {
 
     @PrimaryKey
     public long _id;
-    public String class_name;
+
+    @ColumnInfo(name = "class_name")
+    public String className;
 
 }
