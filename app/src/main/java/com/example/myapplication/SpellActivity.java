@@ -71,6 +71,7 @@ public class SpellActivity extends AppCompatActivity {
                 public long getItemId ( int i){
                     return spells2.get(i)._id;
                 }
+
                 public View getView(int position, View view, ViewGroup viewGroup) {
                     if(view == null)
                         view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);

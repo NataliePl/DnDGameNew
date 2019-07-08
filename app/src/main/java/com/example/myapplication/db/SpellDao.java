@@ -17,6 +17,9 @@ public interface SpellDao {
     @Query("SELECT spell_level, spell_name FROM spells")
     List<SpellLevelName> getAllShortSpells();
 
+    @Query("SELECT * FROM spells WHERE _id = :id")
+    Spell getSpellById (long id);
+
 
 
     @Insert
