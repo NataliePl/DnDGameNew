@@ -39,4 +39,8 @@ public class Spell {
                 ", spell_desc='" + spell_desc + '\'' +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }

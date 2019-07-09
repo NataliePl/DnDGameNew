@@ -24,9 +24,9 @@ import static java.lang.Long.parseLong;
 
 public class OneSpellActivity extends AppCompatActivity {
 String spell;
-    //вывод списка заклинаний
+    //вывод описания одного заклинания
 
-    //   private static final List<spells> spells = new Arraw
+
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -35,15 +35,29 @@ String spell;
         setContentView(R.layout.activity_spell);
         Bundle arguments = getIntent().getExtras();
         spell = arguments.get("Spell").toString();
-        Log.i("RFRF", spell);
+        //Получение из предыдущего активити объекта Спелл
+        Spell spellObj = new Spell();
+        spellObj = (Spell) arguments.get("Spell");
+        Log.i("Activ spell", spell);
         final TextView textView = (TextView) findViewById(R.id.header);
+
+        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID. Теперь предполагаю, что это лишнее
         String[] subStrSpell;
         String delimeter = ","; // Разделитель
         subStrSpell = spell.split(delimeter); // Разделения строки str с помощью метода split()
         String delimeter2 = "="; // Разделитель
         String[] subStrForId;
         subStrForId = subStrSpell[0].split(delimeter2);
+        Log.i("RFRF", subStrSpell[0]);
         final Long idSpell = parseLong(subStrForId[1]);
+        String a = idSpell.toString();
+        Log.i("RFRF", a);
+
+        //Попытка вытащить из объекта класса Spell имя и присвоить его текстовому полю Активити. Выдает ошибку. Пыталась внести в поток работу - тоже с ошибками выходило.
+
+        TextView textViewSpellName = (TextView) findViewById(R.id.spellName);
+        textViewSpellName.setText(spellObj.getName());
+
 
 
 
@@ -52,11 +66,11 @@ String spell;
         new AsyncTask<Void, Void, Spell>() {
         @Override
            protected Spell doInBackground(Void... voids) {
-            AppDatabase db = App.getInstance().getDatabase();
-            SpellDao spellDao = db.spellDao();
-            Spell curSpell = new Spell();
-            curSpell = AppDatabase.getInstance(OneSpellActivity.this).spellDao().getSpellById(idSpell);
-            return curSpell;
+//            AppDatabase db = App.getInstance().getDatabase();
+//            SpellDao spellDao = db.spellDao();
+//            Spell curSpell = new Spell();
+//            curSpell = AppDatabase.getInstance(OneSpellActivity.this).spellDao().getSpellById(idSpell);
+//            return curSpell;
 
 
         }
@@ -106,58 +120,10 @@ String spell;
     }
 
 
-
-        {
-
-
-        };
     }
 
 
 
 
-
-//        new AsyncTask<Void, Void, List<Spell>>() {
-//            @Override
-//            protected List<Spell> doInBackground(Void... voids) {
-//                List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
-//                Log.d("SpellActivity", spells.toString());
-//                return spells;
-//            }
-//        }.execute();
-
-
-
-/*
-protected List<Spell> doInBackground(Void... voids) {
-
-final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSpells();
-BaseAdapter adapter = new BaseAdapter() {
-@Override
-public int getCount() {
-return spells.size();
-}
-
-@Override
-public Object getItem(int i) {
-return spells.get(i);
-}
-
-@Override
-public long getItemId(int i) {
-return spells.get(i)._id;
-}
-
-@Override
-public View getView(int position, View view, ViewGroup viewGroup) {
-if(view == null)
-view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
-
-TextView level = view.findViewById(R.id.spellLevel);
-level.setText(spells.get(position).level);
-
-return view;
-}
-*/
 
 
