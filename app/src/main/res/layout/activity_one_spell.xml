@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/spellName"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/spellLevel"
-        android:layout_width="389dp"
+        android:layout_width="match_parent"
         android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -37,19 +37,21 @@
 
     <TextView
         android:id="@+id/spellReadTime"
-        android:layout_width="394dp"
+        android:layout_width="match_parent"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:scrollbars="vertical"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spellLevel" />
 
     <TextView
         android:id="@+id/spellMaterial"
-        android:layout_width="392dp"
+        android:layout_width="match_parent"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -62,11 +64,13 @@
 
     <TextView
         android:id="@+id/spellDisc"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="526dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:isScrollContainer="false"
+        android:scrollbars = "vertical"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +78,7 @@
 
     <TextView
         android:id="@+id/spellDuringTime"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

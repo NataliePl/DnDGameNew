@@ -91,7 +91,7 @@ String spell;
                 TextView textViewSpellLevel = (TextView) findViewById(R.id.spellLevel);
                 textViewSpellLevel.setText("Уровень: "+curSpell.getLevel());
 
-                TextView textViewSpellMat = (TextView) findViewById(R.id.spellMat);
+                TextView textViewSpellMat = (TextView) findViewById(R.id.spellMaterial);
                 textViewSpellMat.setText("Материал: "+curSpell.getSpell_material());
 
                 TextView textViewSpellDur = (TextView) findViewById(R.id.spellDuringTime);
