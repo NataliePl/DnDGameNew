@@ -32,16 +32,16 @@ String spell;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spell);
+        setContentView(R.layout.activity_one_spell);
         Bundle arguments = getIntent().getExtras();
         spell = arguments.get("Spell").toString();
-        //Получение из предыдущего активити объекта Спелл
-        Spell spellObj = new Spell();
-        spellObj = (Spell) arguments.get("Spell");
+//        //Получение из предыдущего активити объекта Спелл
+//        Spell spellObj = new Spell();
+//       spellObj = (Spell) arguments.get("Spell");
         Log.i("Activ spell", spell);
-        final TextView textView = (TextView) findViewById(R.id.header);
-
-        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID. Теперь предполагаю, что это лишнее
+////        final TextView textView = (TextView) findViewById(R.id.header);
+//
+//        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID. Теперь предполагаю, что это лишнее
         String[] subStrSpell;
         String delimeter = ","; // Разделитель
         subStrSpell = spell.split(delimeter); // Разделения строки str с помощью метода split()
@@ -53,24 +53,32 @@ String spell;
         String a = idSpell.toString();
         Log.i("RFRF", a);
 
+        Log.i("NameFromSpell",subStrSpell[0]);
+
         //Попытка вытащить из объекта класса Spell имя и присвоить его текстовому полю Активити. Выдает ошибку. Пыталась внести в поток работу - тоже с ошибками выходило.
+//
+//        TextView textViewSpellName = (TextView) findViewById(R.id.spellName);
+//        textViewSpellName.setText("Проверка");
 
-        TextView textViewSpellName = (TextView) findViewById(R.id.spellName);
-        textViewSpellName.setText(spellObj.getName());
+
+ //               textViewSpellName.setText(spellObj.name);
 
 
-
+//        new AsyncTask<Void, Void, Spell>() {
+//        @Override
+//           protected Spell doInBackground(Void... voids) {
+//
 
 
         //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
         new AsyncTask<Void, Void, Spell>() {
         @Override
            protected Spell doInBackground(Void... voids) {
-//            AppDatabase db = App.getInstance().getDatabase();
-//            SpellDao spellDao = db.spellDao();
-//            Spell curSpell = new Spell();
-//            curSpell = AppDatabase.getInstance(OneSpellActivity.this).spellDao().getSpellById(idSpell);
-//            return curSpell;
+            AppDatabase db = App.getInstance().getDatabase();
+            SpellDao spellDao = db.spellDao();
+            Spell curSpell = new Spell();
+            curSpell = AppDatabase.getInstance(OneSpellActivity.this).spellDao().getSpellById(idSpell);
+            return curSpell;
 
 
         }
@@ -78,7 +86,22 @@ String spell;
             protected void onPostExecute(Spell curSpell) {
 
                 TextView textViewSpellName = (TextView) findViewById(R.id.spellName);
-                textViewSpellName.setText(curSpell.name);
+                textViewSpellName.setText(curSpell.getName());
+
+                TextView textViewSpellLevel = (TextView) findViewById(R.id.spellLevel);
+                textViewSpellLevel.setText("Уровень: "+curSpell.getLevel());
+
+                TextView textViewSpellMat = (TextView) findViewById(R.id.spellMat);
+                textViewSpellMat.setText("Материал: "+curSpell.getSpell_material());
+
+                TextView textViewSpellDur = (TextView) findViewById(R.id.spellDuringTime);
+                textViewSpellDur.setText("Продолжительность: "+curSpell.getSpell_during_time());
+
+                TextView textViewSpellReadTime = (TextView) findViewById(R.id.spellReadTime);
+                textViewSpellReadTime.setText("Врема наложения: "+curSpell.getSpell_read_time());
+
+                TextView textViewSpellDesc = (TextView) findViewById(R.id.spellDisc);
+                textViewSpellDesc.setText("Описание: "+curSpell.getSpell_desc());
 
 
 //                final List<Spell> spells2 = spells;

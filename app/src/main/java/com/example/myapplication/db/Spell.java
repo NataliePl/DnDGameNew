@@ -43,4 +43,33 @@ public class Spell {
     public String getName() {
         return name;
     }
+
+    public String getLevel() {
+        String levelStr = String.valueOf(level);
+        return levelStr;
+    }
+
+    public String getSpell_during_time() {
+        return spell_during_time;
+    }
+
+    public String getSpell_desc() {
+        return spell_desc;
+    }
+
+    public String getSpell_distance() {
+        return spell_distance;
+    }
+
+    public String getSpell_material() {
+        return spell_material;
+    }
+
+    public String getSpell_nature() {
+        return spell_nature;
+    }
+
+    public String getSpell_read_time() {
+        return spell_read_time;
+    }
 }

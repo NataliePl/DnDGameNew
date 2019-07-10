@@ -24,26 +24,15 @@
 
     <TextView
         android:id="@+id/spellLevel"
-        android:layout_width="112dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spellName" />
-
-    <TextView
-        android:id="@+id/textMat"
-        android:layout_width="279dp"
-        android:layout_height="22dp"
+        android:layout_width="389dp"
+        android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spellLevel"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spellName" />
 
     <TextView
