@@ -65,7 +65,7 @@
     <TextView
         android:id="@+id/spellDisc"
         android:layout_width="match_parent"
-        android:layout_height="526dp"
+        android:layout_height="350dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

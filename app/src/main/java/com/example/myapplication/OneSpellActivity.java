@@ -35,9 +35,7 @@ String spell;
         setContentView(R.layout.activity_one_spell);
         Bundle arguments = getIntent().getExtras();
         spell = arguments.get("Spell").toString();
-//        //Получение из предыдущего активити объекта Спелл
-//        Spell spellObj = new Spell();
-//       spellObj = (Spell) arguments.get("Spell");
+
         Log.i("Activ spell", spell);
 ////        final TextView textView = (TextView) findViewById(R.id.header);
 //
@@ -55,22 +53,7 @@ String spell;
 
         Log.i("NameFromSpell",subStrSpell[0]);
 
-        //Попытка вытащить из объекта класса Spell имя и присвоить его текстовому полю Активити. Выдает ошибку. Пыталась внести в поток работу - тоже с ошибками выходило.
-//
-//        TextView textViewSpellName = (TextView) findViewById(R.id.spellName);
-//        textViewSpellName.setText("Проверка");
 
-
- //               textViewSpellName.setText(spellObj.name);
-
-
-//        new AsyncTask<Void, Void, Spell>() {
-//        @Override
-//           protected Spell doInBackground(Void... voids) {
-//
-
-
-        //            List<SpellLevelName> spells = spellDao.getAllShortSpells();
         new AsyncTask<Void, Void, Spell>() {
         @Override
            protected Spell doInBackground(Void... voids) {
@@ -104,41 +87,6 @@ String spell;
                 textViewSpellDesc.setText("Описание: "+curSpell.getSpell_desc());
 
 
-//                final List<Spell> spells2 = spells;
-//                BaseAdapter adapter = new BaseAdapter() {
-//                    @Override
-//                    public int getCount() {
-//                        return spells2.size();
-//                    }
-//                @Override
-//                public Object getItem ( int i){
-//                    return spells2.get(i);
-//                }
-//
-//                @Override
-//                public long getItemId ( int i){
-//                    return spells2.get(i)._id;
-//                }
-//
-//                public View getView(int position, View view, ViewGroup viewGroup) {
-//                    if(view == null)
-//                        view = LayoutInflater.from(OneSpellActivity.this).inflate(R.layout.spell, viewGroup, false);
-//
-//
-//
-//                    TextView level = view.findViewById(R.id.spellLevel);
-//                    Integer levelSrt = spells2.get(position).level;
-//                    level.setText(levelSrt.toString());
-//                    TextView name = view.findViewById(R.id.spellName);
-//                    name.setText(spells2.get(position).name);
-//
-//                    return view;
-//                 }
-
-
-//            };
-//                ListView listView = findViewById(R.id.listShortSpell);
-//                listView.setAdapter(adapter);
         }}.execute();
     }
 

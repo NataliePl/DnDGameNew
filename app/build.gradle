@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.github.humazed:RoomAsset:v1.0'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    // For Kotlin use kapt instead of annotationProcessor
 
 }

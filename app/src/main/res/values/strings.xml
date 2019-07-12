@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DnDGame!</string>
+    <string name="ButtonLookChoise">Проверка выборки</string>
 </resources>
