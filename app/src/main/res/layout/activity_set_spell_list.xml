@@ -7,6 +7,7 @@
     tools:context=".SetSpellListActivity">
 
     <ListView
+        android:id="@+id/listViewSetSpell"
         android:layout_width="349dp"
         android:layout_height="611dp"
         android:layout_marginStart="8dp"

@@ -79,7 +79,9 @@ public class SetsListActivity extends AppCompatActivity {
                         new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                String val = listView.getItemAtPosition(i).toString();
+//                                String val = listView.getItemAtPosition(i).toString();
+                                SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(i);
+                                Long id = tmp.get_id();
 //                                String val = savedSetsList[position];
 
 //                                SavedSet val = new SavedSet();
@@ -87,7 +89,7 @@ public class SetsListActivity extends AppCompatActivity {
 //                                String a = listView.getItemAtPosition(i).toString();
 //                                String val = listView.getAdapter().getItemId(a);
                                 Intent intent = new Intent(SetsListActivity.this,SetSpellListActivity.class);
-                                intent.putExtra("Set", val);
+                                intent.putExtra("Set", id);
 
                                 startActivity(intent);
 

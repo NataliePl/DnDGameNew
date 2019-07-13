@@ -16,4 +16,8 @@ public class SavedSet {
     public String getSetName() {
         return setName;
     }
+
+    public long get_id() {
+        return _id;
+    }
 }
