@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectedSpellActivity"></activity>
+        <activity android:name=".SetSpellListActivity"></activity>
+        <activity android:name=".SetsListActivity" />
+        <activity android:name=".SelectedSpellActivity" />
         <activity android:name=".SpellActivity" />
         <activity android:name=".OneSpellActivity" />
         <activity android:name=".MainActivity">

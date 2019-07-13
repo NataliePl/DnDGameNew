@@ -16,6 +16,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract SpellDao spellDao();
     public abstract ClassDao classDao();
     public abstract RelationDao relDao();
+    public abstract SavedSetDao savedSetDao();
+    public abstract SavedSetSpellDao savedSetSpellDao();
 
     private static AppDatabase instance;
 
@@ -200,11 +202,33 @@ public abstract class AppDatabase extends RoomDatabase {
                                     "  '8',\n" +
                                     "  '1'\n" +
                                     ");");
+
+//                            Тестирование наборов пользователя
                             db.execSQL("INSERT INTO 'saved_sets' (set_name) VALUES (\n" +
                                     "  'Набор №1'" +
                                     ");");
                             db.execSQL("INSERT INTO 'saved_sets' (set_name) VALUES (\n" +
                                     "  'Набор №2'" +
+                                    ");");
+                            db.execSQL("INSERT INTO 'saved_set_spells' (saved_set_id,spell_id) VALUES (\n" +
+                                    "  '1',\n" +
+                                    "  '1'\n" +
+                                    ");");
+                            db.execSQL("INSERT INTO 'saved_set_spells' (saved_set_id,spell_id) VALUES (\n" +
+                                    "  '1',\n" +
+                                    "  '2'\n" +
+                                    ");");
+                            db.execSQL("INSERT INTO 'saved_set_spells' (saved_set_id,spell_id) VALUES (\n" +
+                                    "  '1',\n" +
+                                    "  '3'\n" +
+                                    ");");
+                            db.execSQL("INSERT INTO 'saved_set_spells' (saved_set_id,spell_id) VALUES (\n" +
+                                    "  '1',\n" +
+                                    "  '4'\n" +
+                                    ");");
+                            db.execSQL("INSERT INTO 'saved_set_spells' (saved_set_id,spell_id) VALUES (\n" +
+                                    "  '1',\n" +
+                                    "  '5'\n" +
                                     ");");
                         }
                     })

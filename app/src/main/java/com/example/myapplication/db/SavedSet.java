@@ -12,4 +12,8 @@ public class SavedSet {
 
     @ColumnInfo(name = "set_name")
     public String setName;
+
+    public String getSetName() {
+        return setName;
+    }
 }

@@ -39,7 +39,7 @@ String spell;
         Log.i("Activ spell", spell);
 ////        final TextView textView = (TextView) findViewById(R.id.header);
 //
-//        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID. Теперь предполагаю, что это лишнее
+//        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID.
         String[] subStrSpell;
         String delimeter = ","; // Разделитель
         subStrSpell = spell.split(delimeter); // Разделения строки str с помощью метода split()

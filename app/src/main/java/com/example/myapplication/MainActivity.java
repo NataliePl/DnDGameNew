@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,14 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.db.AppDatabase;
-import com.example.myapplication.db.Spell;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //Спиннеры
@@ -25,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String[] levels = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     //Работа с БД
-    Button button;
+    Button buttonSets;
     TextView textView;
 
     Intent intent;
@@ -81,32 +74,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //тестирование считывания данных из БД по кнопке
-        button = (Button) findViewById(R.id.button);
+        buttonSets = (Button) findViewById(R.id.but_save_set);
         textView = (TextView) findViewById(R.id.textView);
 
         //Обработчик события по кнопке
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        buttonSets.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent SetsActivity = new Intent(MainActivity.this, SetsListActivity.class);
+                                              startActivity(SetsActivity);
 
-                // лучше использовать ViewModel https://developer.android.com/topic/libraries/architecture/viewmodel
-                new AsyncTask<Void, Void, List<Spell>>() {
+                                          }
 
-                    // Обязательно НЕ в UI потоке, поэтому doInBackground
-                    @Override
-                    protected List<Spell> doInBackground(Void... voids) {
-                        return AppDatabase.getInstance(MainActivity.this).spellDao().getAllSpells();
-                    }
+                                          });
 
-
-                    // Обязательно в UI потоке, поэтому onPostExecute
-                    @Override
-                    protected void onPostExecute(List<Spell> spells) {
-                        textView.setText(spells.toString());
-                    }
-                }.execute();
-            }
-        });
+//                (new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                startActivity(MainActivity(this), );
+//
+//                // лучше использовать ViewModel https://developer.android.com/topic/libraries/architecture/viewmodel
+//                new AsyncTask<Void, Void, List<Spell>>() {
+//
+//                    // Обязательно НЕ в UI потоке, поэтому doInBackground
+//                    @Override
+//                    protected List<Spell> doInBackground(Void... voids) {
+//                        return AppDatabase.getInstance(MainActivity.this).spellDao().getAllSpells();
+//                    }
+//
+//
+//                    // Обязательно в UI потоке, поэтому onPostExecute
+//                    @Override
+//                    protected void onPostExecute(List<Spell> spells) {
+//                        textView.setText(spells.toString());
+//                    }
+//                }.execute();
+//            }
+//        });
 
     }
 

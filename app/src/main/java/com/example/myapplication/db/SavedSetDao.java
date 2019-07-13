@@ -9,6 +9,6 @@ import java.util.List;
 public interface SavedSetDao {
 
     @Query("SELECT * FROM saved_sets")
-    public List<SavedSet> getAllSet();
+    public List<SavedSet> getAllSets();
 
 }
