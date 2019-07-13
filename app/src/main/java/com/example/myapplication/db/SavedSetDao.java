@@ -11,4 +11,7 @@ public interface SavedSetDao {
     @Query("SELECT * FROM saved_sets")
     public List<SavedSet> getAllSets();
 
+    @Query("DELETE from saved_sets WHERE _id =:idSet")
+    public void deleteSetById(long idSet);
+
 }

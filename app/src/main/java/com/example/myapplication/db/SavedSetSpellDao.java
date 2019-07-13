@@ -10,4 +10,6 @@ public interface SavedSetSpellDao {
     @Query("SELECT * FROM saved_set_spells")
     public List<SavedSetSpell> getAllSetSpells();
 
+
+
 }

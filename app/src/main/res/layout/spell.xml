@@ -6,9 +6,10 @@
     android:background="?android:attr/activatedBackgroundIndicator">
 
     <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:focusable="false"/>
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/spellLevel"

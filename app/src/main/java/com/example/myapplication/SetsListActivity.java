@@ -1,17 +1,23 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
@@ -24,16 +30,18 @@ import java.util.List;
 
 public class SetsListActivity extends AppCompatActivity {
     ListView listView;
+    AppDatabase db;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sets_list);
-        Intent intent = new Intent(SetsListActivity.this,SetSpellListActivity.class);
+        intent = new Intent(SetsListActivity.this,SetSpellListActivity.class);
 
         new AsyncTask<Void, Void, List<SavedSet>>() {
             @Override
             protected List<SavedSet> doInBackground(Void... voids) {
-                AppDatabase db = App.getInstance().getDatabase();
+                db = App.getInstance().getDatabase();
                 SavedSetDao savedSetDao = db.savedSetDao();
                 final List<SavedSet> savedSets = AppDatabase.getInstance(SetsListActivity.this).savedSetDao().getAllSets();
                 return savedSets;
@@ -74,6 +82,7 @@ public class SetsListActivity extends AppCompatActivity {
                 };
                 listView = findViewById(R.id.listViewSetsName);
                 listView.setAdapter(adapter);
+                registerForContextMenu(listView);
 //                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
                 listView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
@@ -82,8 +91,9 @@ public class SetsListActivity extends AppCompatActivity {
 //                                String val = listView.getItemAtPosition(i).toString();
                                 SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(i);
                                 Long id = tmp.get_id();
+                                String idStr=id.toString();
 //                                String val = savedSetsList[position];
-
+                                //TODO Intent получает ID. Но в SetSpellListActivity приходит, судя по всему, null. При этом отображаются заклинания после запроса словно выбран id1 при любом из нажатий
 //                                SavedSet val = new SavedSet();
 //                                String a = listView.getSelectedItem().toString();
 //                                String a = listView.getItemAtPosition(i).toString();
@@ -104,4 +114,42 @@ public class SetsListActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+        return;
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit:
+                return true;
+            case R.id.delete:
+//                long id = item.getItemId();
+//                String a = Long.toString(id);
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                Integer id2 = info.position;
+//                SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(id2);
+//                Long id = tmp.get_id();
+////                SavedSet tmp=(SavedSet) item.getItemAtPosition(i);
+////                Long id = tmp.get_id();
+////                item.
+////                SavedSet tmp=(SavedSet)item.getItemId();
+////                Long id = tmp.get_id();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                "Ваш выбор: " + info, Toast.LENGTH_SHORT);
+                toast.show();
+////                db.savedSetDao().deleteSetById(2);
+////                String b= "ла ла";
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    //        @Override
+//        public boolean  onContextItemSelected(MenuItem item){
+
 }

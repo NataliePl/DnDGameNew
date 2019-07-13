@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,7 +33,10 @@ ListView listView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_spell_list);
         Bundle arguments = getIntent().getExtras();
+        String test =  arguments.get("Set").toString();
         setUserId = (long) arguments.get("Set");
+
+
 
         Log.i("Send from set", setUserId.toString());
         textTest = findViewById(R.id.textView3);
@@ -82,6 +88,7 @@ ListView listView;
                 };
                 listView = findViewById(R.id.listViewSetSpell);
                 listView.setAdapter(adapter);
+
 //                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
                 listView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
@@ -97,10 +104,37 @@ ListView listView;
 
                         }
 
+
                 );
 
 
             } }.execute();
+//TODO Контестное меню с возможностью удаления выбранного набора из лист вью
+
+//        public boolean onCreateOptionsMenu (Menu menu)
+//        @Override
+//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+//            super.onCreateContextMenu(menu, v, menuInfo);
+//
+//            MenuInflater inflater = getMenuInflater();
+//            inflater.inflate(R.menu.context_menu, menu);
+//        }
+//        @Override
+//        public boolean onContextItemSelected(MenuItem item) {
+//            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//            switch (item.getItemId()) {
+//                case R.id.edit:
+//                    editItem(info.position); // метод, выполняющий действие при редактировании пункта меню
+//                    return true;
+//                case R.id.delete:
+//                    deleteItem(info.position); //метод, выполняющий действие при удалении пункта меню
+//                    return true;
+//                default:
+//                    return super.onContextItemSelected(item);
+
+            }
+
 
     }
-}
+
+
