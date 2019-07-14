@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,7 @@ String spell;
                 textViewSpellName.setText(curSpell.getName());
 
                 TextView textViewSpellLevel = (TextView) findViewById(R.id.spellLevel);
-                textViewSpellLevel.setText("Уровень: "+curSpell.getLevel());
+                textViewSpellLevel.setText("Ур.: "+curSpell.getLevel());
 
                 TextView textViewSpellMat = (TextView) findViewById(R.id.spellMaterial);
                 textViewSpellMat.setText("Материал: "+curSpell.getSpell_material());
@@ -85,6 +86,13 @@ String spell;
 
                 TextView textViewSpellDesc = (TextView) findViewById(R.id.spellDisc);
                 textViewSpellDesc.setText("Описание: "+curSpell.getSpell_desc());
+                textViewSpellDesc.setMovementMethod(new ScrollingMovementMethod());
+
+//                TextView textViewSpellDistance = (TextView) findViewById(R.id.spellDistance);
+//                textViewSpellDistance.setText("Дистанция: "+curSpell.getSpell_distance());
+//
+//                TextView textViewSpellNature = (TextView) findViewById(R.id.spellNature);
+//                textViewSpellNature.setText("Природа: "+curSpell.getSpell_nature());
 
 
         }}.execute();

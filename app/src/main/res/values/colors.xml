@@ -3,7 +3,7 @@
     <color name="colorPrimary">#848484</color>
     <color name="colorPrimaryDark">#848484</color>
     <color name="colorAccent">#808080</color>
-    <color name="reddivider">#FFEBCD</color>
+    <color name="reddivider">#ffffff</color>
     <color name="backgroundSpinner">#ffffff</color>
     <color name="backgroundActivity">#F7F2E0</color>
     <color name="backgroundButton">#DEB887</color>

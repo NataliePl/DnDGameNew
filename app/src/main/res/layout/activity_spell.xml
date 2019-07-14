@@ -4,59 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundActivity"
     tools:context=".SpellActivity">
-
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp" />
 
     <ListView
         android:id="@+id/listShortSpell"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="20dp"
+
         android:divider="@color/reddivider"
-        android:dividerHeight="2dp"
+        android:dividerHeight="3dp"
+
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/SpellSelected"
-        android:layout_width="203dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
         android:layout_height="59dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="8dp"
         android:layout_weight="0"
+        android:paddingHorizontal="8dp"
         android:text="@string/ButtonLookChoise"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listShortSpell"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintTop_toBottomOf="@+id/listShortSpell" />
+
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="77dp"
-        android:layout_height="197dp"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="55dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SpellSelected"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listShortSpell" />
+        app:layout_constraintTop_toBottomOf="@+id/SpellSelected"
+        app:layout_constraintVertical_bias="0.792" />
 </androidx.constraintlayout.widget.ConstraintLayout>

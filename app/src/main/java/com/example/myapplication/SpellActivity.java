@@ -104,7 +104,7 @@ public class SpellActivity extends AppCompatActivity {
                 };
                 listView = findViewById(R.id.listShortSpell);
                 listView.setAdapter(adapter);
-                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+//                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
                 listView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
