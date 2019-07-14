@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //тестирование считывания данных из БД по кнопке
         buttonSets = (Button) findViewById(R.id.but_save_set);
-        textView = (TextView) findViewById(R.id.textView);
+
 
         //Обработчик события по кнопке
         buttonSets.setOnClickListener(new View.OnClickListener() {

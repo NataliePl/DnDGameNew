@@ -98,10 +98,10 @@ public class SetsListActivity extends AppCompatActivity {
 //                                String a = listView.getSelectedItem().toString();
 //                                String a = listView.getItemAtPosition(i).toString();
 //                                String val = listView.getAdapter().getItemId(a);
-                                Intent intent = new Intent(SetsListActivity.this,SetSpellListActivity.class);
-                                intent.putExtra("Set", id);
+                                Intent intent2 = new Intent(SetsListActivity.this,SetSpellListActivity.class);
+                                intent2.putExtra("Set", id);
 
-                                startActivity(intent);
+                                startActivity(intent2);
 
                             }
 

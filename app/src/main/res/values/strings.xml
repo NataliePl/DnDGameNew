@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">DnDGame!</string>
+    <string name="app_name">DnD Spells</string>
     <string name="ButtonLookChoise">Проверка выборки</string>
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
+    <string name="ChooseClass">Выберите класс</string>
+    <string name="textSavedSet">Сохраненные наборы</string>
+    <string name="textButSpellList">Список заклинаний</string>
 </resources>

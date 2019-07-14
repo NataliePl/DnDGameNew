@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,20 +26,22 @@ import com.example.myapplication.db.SpellDao;
 import java.util.List;
 
 public class SetSpellListActivity extends AppCompatActivity {
-Long setUserId;
+long setUserId;
 TextView textTest;
 ListView listView;
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_spell_list);
         Bundle arguments = getIntent().getExtras();
         String test =  arguments.get("Set").toString();
+//        setUserId = arguments.getInt("Set");
         setUserId = (long) arguments.get("Set");
 
 
 
-        Log.i("Send from set", setUserId.toString());
+//        Log.i("Send from set", setUserId.toString());
         textTest = findViewById(R.id.textView3);
 //        textTest.setText(setUserId);
 

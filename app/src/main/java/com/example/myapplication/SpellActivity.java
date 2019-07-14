@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class SpellActivity extends AppCompatActivity {
     String Class;
     int Level;
     ListView listView;
+    View view;
 
     String selected="";
     TextView textView1;
@@ -103,6 +105,7 @@ public class SpellActivity extends AppCompatActivity {
                 listView = findViewById(R.id.listShortSpell);
                 listView.setAdapter(adapter);
                 listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+
                 listView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
                             @Override
@@ -123,37 +126,82 @@ public class SpellActivity extends AppCompatActivity {
             } }.execute();
 
         //TODO возможность по клику кнопки сохранить множественный выбор из лист вью. Со всплывающим окном для внесения названия набора
-//        CheckBox checkBoxSpell = (CheckBox) findViewById(R.id.checkBox);
+        final CheckBox checkBoxSpell = (CheckBox) findViewById(R.id.checkBox);
+//        checkBoxSpell.isChecked();
+
+
 //        checkBoxSpell.setOnClickListener(new View.OnClickListener() {
 //        });
 
         //немного работающий код, но считывает не чек бокс а айтем с листвью, да еще и возникает проблема с корректностью выборки.
-                Button getChoice = (Button) findViewById(R.id.SpellSelected);
-        getChoice.setOnClickListener(
+                final Button getChoice = (Button) findViewById(R.id.SpellSelected);
+       getChoice.setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
 
-                        SparseBooleanArray sp = listView.getCheckedItemPositions();
+//                        SparseBooleanArray sp = listView.getCheckedItemPositions();
 
+                        CheckBox spell = (CheckBox) findViewById(R.id.checkBox);
+
+                        String selectedItems = "";
+                        int sp = listView.getAdapter().getCount();
+//                        SparseBooleanArray sp = listView.getCheckedItemPositions();
                         StringBuilder sb = new StringBuilder();
+                        // Получаем, отмечен ли данный флажок
+                        ListView selection = (ListView) findViewById(R.id.listShortSpell);
+                        for (int i = 0; i < sp; i++) {
 
-                        for (int i = 0; i < sp.size(); i++) {
-                            if (sp.valueAt(i) == true) {
-                                Spell spellItem = (Spell) listView.getItemAtPosition(i);
-                                // Or:
-                                // String s = ((CheckedTextView) listView.getChildAt(i)).getText().toString();
-                                String s = spellItem.getName();
-                                sb = sb.append(" " + s);
-                            }
+
+                            if (spell.isChecked()) {
+                                Integer test=spell.getId();
+//                                Class test2=spell.getClass();
+//                                Spell SelectedSpell = new Spell;
+
+                                String test2=test.toString();
+
+                                selectedItems += test2;
+                            } else
+                                continue;
+
+//
+//                        StringBuilder sb = new StringBuilder();
+//
+//                        for (int i = 0; i < sp.size(); i++) {
+//                            if (sp.valueAt(i) == true) {
+//                                Spell spellItem = (Spell) listView.getItemAtPosition(i);
+//                                // Or:
+//                                // String s = ((CheckedTextView) listView.getChildAt(i)).getText().toString();
+//                                String s = spellItem.getName();
+//                                sb = sb.append(" " + s);
+//                            }
+//                        }
+
                         }
-                        textView1.setText("Selected items are: " + sb.toString());
-
+                        textView1.setText("Selected items are: " + selectedItems.toString());
                     }
                 }
-                    );
+       );
                 }
+//    public void onCheckBoxClicked(View view){
+//
+//        // Получаем флажок
+//        CheckBox spell = (CheckBox) view;
+//        String selectedItems = "";
+//        SparseBooleanArray sp = listView.getCheckedItemPositions();
+//        StringBuilder sb = new StringBuilder();
+//        // Получаем, отмечен ли данный флажок
+//        ListView selection = (ListView) findViewById(R.id.listShortSpell);
+//        for (int i = 0; i < sp.size(); i++) {
+//
+//        if(spell.isChecked()){
+//            selectedItems += spell.getText();
+//           }
+//        else
+//            continue;}
+
+
     }
 
 

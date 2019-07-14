@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="reddivider">#D81B60</color>
+    <color name="colorPrimary">#848484</color>
+    <color name="colorPrimaryDark">#848484</color>
+    <color name="colorAccent">#808080</color>
+    <color name="reddivider">#FFEBCD</color>
+    <color name="backgroundSpinner">#ffffff</color>
+    <color name="backgroundActivity">#F7F2E0</color>
+    <color name="backgroundButton">#DEB887</color>
+    <color name="textButton">#8B4513</color>
 </resources>
