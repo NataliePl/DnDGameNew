@@ -5,11 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +13,6 @@ import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
 import com.example.myapplication.db.Spell;
 import com.example.myapplication.db.SpellDao;
-
-import java.util.List;
 
 import static java.lang.Long.parseLong;
 
@@ -37,7 +30,7 @@ String spell;
         Bundle arguments = getIntent().getExtras();
         spell = arguments.get("Spell").toString();
 
-        Log.i("Activ spell", spell);
+//        Log.i("Activ spell", spell);
 ////        final TextView textView = (TextView) findViewById(R.id.header);
 //
 //        //подход с разбором переменной spell в качестве строки, чтобы добраться до ID.
@@ -81,11 +74,12 @@ String spell;
                 TextView textViewSpellDur = (TextView) findViewById(R.id.spellDuringTime);
                 textViewSpellDur.setText("Продолжительность: "+curSpell.getSpell_during_time());
 
-                TextView textViewSpellReadTime = (TextView) findViewById(R.id.spellReadTime);
-                textViewSpellReadTime.setText("Врема наложения: "+curSpell.getSpell_read_time());
+                TextView textViewSpellReadTime = (TextView) findViewById(R.id.spellReadMatDisTime);
+                String comp = "Врема наложения: "+curSpell.getSpell_read_time()+ "\n\nДистанция: "+ curSpell.getSpell_distance()+ "\n\nПрирода: "+ curSpell.getSpell_nature();
+                textViewSpellReadTime.setText(comp);
 
                 TextView textViewSpellDesc = (TextView) findViewById(R.id.spellDisc);
-                textViewSpellDesc.setText("Описание: "+curSpell.getSpell_desc());
+                textViewSpellDesc.setText(curSpell.getSpell_desc());
                 textViewSpellDesc.setMovementMethod(new ScrollingMovementMethod());
 
 //                TextView textViewSpellDistance = (TextView) findViewById(R.id.spellDistance);

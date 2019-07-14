@@ -60,14 +60,14 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/spellReadTime"
+        android:id="@+id/spellReadMatDisTime"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:inputType="textMultiLine"
         android:text="Время накладывания"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/spellDisc"
@@ -81,12 +81,10 @@
         android:layout_height="35dp"
         android:layout_alignParentTop="false"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Материалы"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/spellReadTime"
+        app:layout_constraintBottom_toTopOf="@+id/spellReadMatDisTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spellDuringTime" />
@@ -110,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spellReadTime" />
+        app:layout_constraintTop_toBottomOf="@+id/spellReadMatDisTime" />
 
     <TextView
         android:id="@+id/spellDuringTime"
@@ -121,7 +119,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Длительность заклинания"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/spellMaterial"

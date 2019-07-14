@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundActivity"
     tools:context=".SetSpellListActivity">
     <TextView
         android:id="@+id/header"
@@ -17,11 +18,13 @@
     <ListView
         android:id="@+id/listViewSetSpell"
         android:layout_width="349dp"
-        android:layout_height="459dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
+        android:divider="@color/reddivider"
+        android:dividerHeight="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +38,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
 
-        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/listViewSetSpell"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
