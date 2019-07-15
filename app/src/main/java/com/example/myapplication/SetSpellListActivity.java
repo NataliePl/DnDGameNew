@@ -41,7 +41,7 @@ ListView listView;
 
 
 
-//        Log.i("Send from set", setUserId.toString());
+        Log.i("Send from set", test);
         textTest = findViewById(R.id.textView3);
 //        textTest.setText(setUserId);
 

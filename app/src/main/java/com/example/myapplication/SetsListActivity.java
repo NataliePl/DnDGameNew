@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class SetsListActivity extends AppCompatActivity {
     ListView listView;
     AppDatabase db;
     Intent intent;
+    long idSetForDel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,7 @@ public class SetsListActivity extends AppCompatActivity {
                                 Long id = tmp.get_id();
                                 String idStr=id.toString();
 //                                String val = savedSetsList[position];
-                                //TODO Intent получает ID. Но в SetSpellListActivity приходит, судя по всему, null. При этом отображаются заклинания после запроса словно выбран id1 при любом из нажатий
+
 //                                SavedSet val = new SavedSet();
 //                                String a = listView.getSelectedItem().toString();
 //                                String a = listView.getItemAtPosition(i).toString();
@@ -104,6 +106,7 @@ public class SetsListActivity extends AppCompatActivity {
                                 startActivity(intent2);
 
                             }
+
 
                         }
 
@@ -122,16 +125,73 @@ public class SetsListActivity extends AppCompatActivity {
         return;
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit:
                 return true;
             case R.id.delete:
-//                long id = item.getItemId();
-//                String a = Long.toString(id);
+//              long id = item.getItemId();
+//              String a = Long.toString(id);
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 Integer id2 = info.position;
+//                SavedSet a = new SavedSet();
+                SavedSet a = (SavedSet) listView.getItemAtPosition(id2);
+                idSetForDel = a.get_id();
+
+                new AsyncTask<Long, Void, List<SavedSet>>() {
+
+
+                    @Override
+                    protected List<SavedSet> doInBackground(Long ... voids) {
+                        db = App.getInstance().getDatabase();
+                        SavedSetDao savedSetDao = db.savedSetDao();
+                        AppDatabase.getInstance(SetsListActivity.this).savedSetDao().deleteSetById(idSetForDel);
+                        final List<SavedSet> savedSets2 = AppDatabase.getInstance(SetsListActivity.this).savedSetDao().getAllSets();
+                        return savedSets2;
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<SavedSet> savedSets2) {
+                        final List<SavedSet> savedSetsList = savedSets2;
+                        final BaseAdapter adapterNew = new BaseAdapter() {
+                            @Override
+                            public int getCount() {
+                                return savedSetsList.size();
+                            }
+
+                            @Override
+                            public Object getItem(int i) {
+                                return savedSetsList.get(i);
+                            }
+
+                            @Override
+                            public long getItemId(int i) {
+                                return savedSetsList.get(i)._id;
+                            }
+
+                            public View getView(int position, View view, ViewGroup viewGroup) {
+                                if (view == null)
+                                    view = LayoutInflater.from(SetsListActivity.this).inflate(R.layout.set_name, viewGroup, false);
+
+                                TextView name = view.findViewById(R.id.setName);
+                                String setNameText = savedSetsList.get(position).setName;
+                                name.setText(setNameText);
+
+                                return view;
+                            }
+
+
+                        };
+                        ListView listView = findViewById(R.id.listViewSetsName);
+                        listView.setAdapter(adapterNew);
+                    }
+
+
+                };
+//                String b = testA.toString();
 //                SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(id2);
 //                Long id = tmp.get_id();
 ////                SavedSet tmp=(SavedSet) item.getItemAtPosition(i);
@@ -139,9 +199,9 @@ public class SetsListActivity extends AppCompatActivity {
 ////                item.
 ////                SavedSet tmp=(SavedSet)item.getItemId();
 ////                Long id = tmp.get_id();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                "Ваш выбор: " + info, Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(getApplicationContext(),
+//                "Ваш выбор: " + idSetForDel, Toast.LENGTH_SHORT);
+//                toast.show();
 ////                db.savedSetDao().deleteSetById(2);
 ////                String b= "ла ла";
                 return true;

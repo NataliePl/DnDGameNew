@@ -26,7 +26,7 @@ public interface SpellDao {
 
     @Query("SELECT spell_name,spell_level,spell_nature,spell_during_time,spell_distance,spell_material,spell_read_time,spell_desc,spells._id " +
             "FROM spells " +
-            "JOIN saved_sets ON saved_sets._id=:idSet " +
+            "JOIN saved_sets ON saved_sets._id=saved_set_spells.saved_set_id " +
             "JOIN saved_set_spells ON saved_set_spells.spell_id=spells._id   " +
             "WHERE saved_sets._id=:idSet ")
     List<Spell> getAllSavedCurrentSetSpells(long idSet);
