@@ -1,34 +1,29 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
-import com.example.myapplication.db.Class;
 import com.example.myapplication.db.Spell;
 import com.example.myapplication.db.SpellDao;
-import com.example.myapplication.db.SpellLevelName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -37,6 +32,8 @@ public class SpellActivity extends AppCompatActivity {
     int Level;
     ListView listView;
     View view;
+
+    private List<Spell> selectedSpells = new ArrayList<>();
 
     String selected="";
     TextView textView1;
@@ -69,33 +66,49 @@ public class SpellActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(List<Spell> spells) {
-                final List<Spell> spells2 = spells;
+            protected void onPostExecute(final List<Spell> spells) {
+                selectedSpells = new ArrayList<>();
+
                 final BaseAdapter adapter = new BaseAdapter() {
                     @Override
                     public int getCount() {
-                        return spells2.size();
+                        return spells.size();
                     }
 
                     @Override
                     public Object getItem(int i) {
-                        return spells2.get(i);
+                        return spells.get(i);
                     }
 
                     @Override
                     public long getItemId(int i) {
-                        return spells2.get(i)._id;
+                        return spells.get(i)._id;
                     }
 
                     public View getView(int position, View view, ViewGroup viewGroup) {
                         if (view == null)
                             view = LayoutInflater.from(SpellActivity.this).inflate(R.layout.spell, viewGroup, false);
 
+                        final Spell spell = spells.get(position);
+
                         TextView level = view.findViewById(R.id.spellLevel);
-                        Integer levelSrt = spells2.get(position).level;
-                        level.setText(levelSrt.toString());
+                        CheckBox checkBox = view.findViewById(R.id.checkBox);
+
+                        checkBox.setChecked(selectedSpells.contains(spell));
+                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                                if (checked)
+                                    selectedSpells.add(spell);
+                                else
+                                    selectedSpells.remove(spell);
+                            }
+                        });
+
+                        int levelSrt = spell.level; // todo getter?
+                        level.setText(String.valueOf(levelSrt)); // Don't use Integer. You can use String.valueOf(levelSrt)
                         TextView name = view.findViewById(R.id.spellName);
-                        name.setText(spells2.get(position).name);
+                        name.setText(spell.name);
 
                         return view;
                     }
@@ -125,64 +138,17 @@ public class SpellActivity extends AppCompatActivity {
 
             } }.execute();
 
-        //TODO возможность по клику кнопки сохранить множественный выбор из лист вью. Со всплывающим окном для внесения названия набора
-        final CheckBox checkBoxSpell = (CheckBox) findViewById(R.id.checkBox);
-//        checkBoxSpell.isChecked();
 
-
-//        checkBoxSpell.setOnClickListener(new View.OnClickListener() {
-//        });
-
-        //немного работающий код, но считывает не чек бокс а айтем с листвью, да еще и возникает проблема с корректностью выборки.
-                final Button getChoice = (Button) findViewById(R.id.SpellSelected);
-       getChoice.setOnClickListener(
+        final Button getChoice = (Button) findViewById(R.id.SpellSelected);
+        getChoice.setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-
-//                        SparseBooleanArray sp = listView.getCheckedItemPositions();
-
-                        CheckBox spell = (CheckBox) findViewById(R.id.checkBox);
-
-                        String selectedItems = "";
-                        int sp = listView.getAdapter().getCount();
-//                        SparseBooleanArray sp = listView.getCheckedItemPositions();
-                        StringBuilder sb = new StringBuilder();
-                        // Получаем, отмечен ли данный флажок
-                        ListView selection = (ListView) findViewById(R.id.listShortSpell);
-                        for (int i = 0; i < sp; i++) {
-
-
-                            if (spell.isChecked()) {
-                                Integer test=spell.getId();
-//                                Class test2=spell.getClass();
-//                                Spell SelectedSpell = new Spell;
-
-                                String test2=test.toString();
-
-                                selectedItems += test2;
-                            } else
-                                continue;
-
-//
-//                        StringBuilder sb = new StringBuilder();
-//
-//                        for (int i = 0; i < sp.size(); i++) {
-//                            if (sp.valueAt(i) == true) {
-//                                Spell spellItem = (Spell) listView.getItemAtPosition(i);
-//                                // Or:
-//                                // String s = ((CheckedTextView) listView.getChildAt(i)).getText().toString();
-//                                String s = spellItem.getName();
-//                                sb = sb.append(" " + s);
-//                            }
-//                        }
-
-                        }
-                        textView1.setText("Selected items are: " + selectedItems.toString());
+                        textView1.setText("Selected items are: " + selectedSpells);
                     }
                 }
-       );
+        );
                 }
 //    public void onCheckBoxClicked(View view){
 //
