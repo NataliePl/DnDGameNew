@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.db.App;
 import com.example.myapplication.db.AppDatabase;
@@ -33,9 +34,10 @@ public class SpellActivity extends AppCompatActivity {
     ListView listView;
     View view;
 
+
     private List<Spell> selectedSpells = new ArrayList<>();
 
-    String selected="";
+    String selected = "";
     TextView textView1;
 //    Intent intent2 = new Intent(SpellActivity.this,SelectedSpellActivity.class);
     //вывод списка заклинаний
@@ -136,7 +138,8 @@ public class SpellActivity extends AppCompatActivity {
                 );
 
 
-            } }.execute();
+            }
+        }.execute();
 
 
         final Button getChoice = (Button) findViewById(R.id.SpellSelected);
@@ -149,77 +152,8 @@ public class SpellActivity extends AppCompatActivity {
                     }
                 }
         );
-                }
-//    public void onCheckBoxClicked(View view){
-//
-//        // Получаем флажок
-//        CheckBox spell = (CheckBox) view;
-//        String selectedItems = "";
-//        SparseBooleanArray sp = listView.getCheckedItemPositions();
-//        StringBuilder sb = new StringBuilder();
-//        // Получаем, отмечен ли данный флажок
-//        ListView selection = (ListView) findViewById(R.id.listShortSpell);
-//        for (int i = 0; i < sp.size(); i++) {
-//
-//        if(spell.isChecked()){
-//            selectedItems += spell.getText();
-//           }
-//        else
-//            continue;}
-
-
     }
-
-
-
-
-
-
-
-//        Button getChoice = (Button) findViewById(R.id.SpellSelected);
-//        getChoice.setOnClickListener(
-//                new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View view) {
-//
-//
-//                        int cntChoice = listView.getCount();
-//
-//                        SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
-//
-//                        for (int i = 0; i < cntChoice; i++) {
-//
-//                            if (sparseBooleanArray.get(i)) {
-//
-//                                selected += listView.getItemAtPosition(i).toString() + "\n";
-//                            }
-//
-//                        }
-//
-//                        textView1 = (TextView) findViewById(R.id.textView2);
-//                        textView1.setText(selected);
-//                        startActivity(intent2);
-//                    }}
-//                    );
-
-            //                Toast toast = Toast.makeText(getApplicationContext(),
-//                        "Ваш выбор: " + selected, Toast.LENGTH_SHORT);
-//                toast.show();
-
-
-//    @Override
-//    public void onClick(View view) {
-//        SparseBooleanArray bb = listView.getCheckedItemPositions();
-//        Log.d("MyLog", "click");
-//        for(int i = 0; i < bb.size(); i++){
-//            Log.d("MyLog", "ok");
-//            int key = bb.keyAt(i);
-//            if(bb.get(key)){
-//
-//            }
-//            String val =listView.getItemAtPosition(i).toString();
-//            Log.d("MyLog", val);
+}
 
 
 

@@ -34,18 +34,17 @@ public class SetsListActivity extends AppCompatActivity {
     AppDatabase db;
     Intent intent;
     long idSetForDel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sets_list);
-        intent = new Intent(SetsListActivity.this,SetSpellListActivity.class);
+        intent = new Intent(SetsListActivity.this, SetSpellListActivity.class);
 
         new AsyncTask<Void, Void, List<SavedSet>>() {
             @Override
             protected List<SavedSet> doInBackground(Void... voids) {
-                db = App.getInstance().getDatabase();
-                SavedSetDao savedSetDao = db.savedSetDao();
-                final List<SavedSet> savedSets = AppDatabase.getInstance(SetsListActivity.this).savedSetDao().getAllSets();
+                List<SavedSet> savedSets = getAllUserSets();
                 return savedSets;
 
             }
@@ -53,70 +52,75 @@ public class SetsListActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<SavedSet> savedSets) {
                 final List<SavedSet> savedSetsList = savedSets;
-                final BaseAdapter adapter = new BaseAdapter() {
-                    @Override
-                    public int getCount() {
-                        return savedSetsList.size();
-                    }
+                setListSets(savedSetsList);
 
-                    @Override
-                    public Object getItem(int i) {
-                        return savedSetsList.get(i);
-                    }
-
-                    @Override
-                    public long getItemId(int i) {
-                        return savedSetsList.get(i)._id;
-                    }
-
-                    public View getView(int position, View view, ViewGroup viewGroup) {
-                        if (view == null)
-                            view = LayoutInflater.from(SetsListActivity.this).inflate(R.layout.set_name, viewGroup, false);
-
-                        TextView name = view.findViewById(R.id.setName);
-                        String setNameText = savedSetsList.get(position).setName;
-                        name.setText(setNameText);
-
-                        return view;
-                    }
-
-
-                };
-                listView = findViewById(R.id.listViewSetsName);
-                listView.setAdapter(adapter);
-                registerForContextMenu(listView);
-//                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-                listView.setOnItemClickListener(
-                        new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                                String val = listView.getItemAtPosition(i).toString();
-                                SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(i);
-                                Long id = tmp.get_id();
-                                String idStr=id.toString();
-//                                String val = savedSetsList[position];
-
-//                                SavedSet val = new SavedSet();
-//                                String a = listView.getSelectedItem().toString();
-//                                String a = listView.getItemAtPosition(i).toString();
-//                                String val = listView.getAdapter().getItemId(a);
-                                Intent intent2 = new Intent(SetsListActivity.this,SetSpellListActivity.class);
-                                intent2.putExtra("Set", id);
-
-                                startActivity(intent2);
-
-                            }
-
-
-                        }
-
-                );
-
-
-            } }.execute();
-
+            }
+        }.execute();
 
     }
+//вынесение наборов в листвью. Адаптер
+    private void setListSets(final List<SavedSet> savedSetsList) {
+
+        final BaseAdapter adapter = new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return savedSetsList.size();
+            }
+
+            @Override
+            public Object getItem(int i) {
+                return savedSetsList.get(i);
+            }
+
+            @Override
+            public long getItemId(int i) {
+                return savedSetsList.get(i)._id;
+            }
+
+            public View getView(int position, View view, ViewGroup viewGroup) {
+                if (view == null)
+                    view = LayoutInflater.from(SetsListActivity.this).inflate(R.layout.set_name, viewGroup, false);
+
+                TextView name = view.findViewById(R.id.setName);
+                String setNameText = savedSetsList.get(position).setName;
+                name.setText(setNameText);
+
+                return view;
+            }
+
+
+        };
+        listView = findViewById(R.id.listViewSetsName);
+        listView.setAdapter(adapter);
+        registerForContextMenu(listView);
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        SavedSet tmp = (SavedSet) adapterView.getItemAtPosition(i);
+                        Long id = tmp.get_id();
+                        String idStr = id.toString();
+                        Intent intent2 = new Intent(SetsListActivity.this, SetSpellListActivity.class);
+                        intent2.putExtra("Set", id);
+                        startActivity(intent2);
+
+                    }
+
+
+                }
+
+        );
+    }
+
+    private List<SavedSet> getAllUserSets() {
+        db = App.getInstance().getDatabase();
+        SavedSetDao savedSetDao = db.savedSetDao();
+        final List<SavedSet> savedSets = AppDatabase.getInstance(SetsListActivity.this).savedSetDao().getAllSets();
+        return savedSets;
+    }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -132,11 +136,10 @@ public class SetsListActivity extends AppCompatActivity {
             case R.id.edit:
                 return true;
             case R.id.delete:
-//              long id = item.getItemId();
-//              String a = Long.toString(id);
+
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 Integer id2 = info.position;
-//                SavedSet a = new SavedSet();
+
                 SavedSet a = (SavedSet) listView.getItemAtPosition(id2);
                 idSetForDel = a.get_id();
 
@@ -144,11 +147,12 @@ public class SetsListActivity extends AppCompatActivity {
 
 
                     @Override
-                    protected List<SavedSet> doInBackground(Long ... voids) {
+                    protected List<SavedSet> doInBackground(Long... voids) {
                         db = App.getInstance().getDatabase();
                         SavedSetDao savedSetDao = db.savedSetDao();
                         AppDatabase.getInstance(SetsListActivity.this).savedSetDao().deleteSetById(idSetForDel);
                         final List<SavedSet> savedSets2 = AppDatabase.getInstance(SetsListActivity.this).savedSetDao().getAllSets();
+
                         return savedSets2;
 
                     }
@@ -191,25 +195,11 @@ public class SetsListActivity extends AppCompatActivity {
 
 
                 };
-//                String b = testA.toString();
-//                SavedSet tmp=(SavedSet) adapterView.getItemAtPosition(id2);
-//                Long id = tmp.get_id();
-////                SavedSet tmp=(SavedSet) item.getItemAtPosition(i);
-////                Long id = tmp.get_id();
-////                item.
-////                SavedSet tmp=(SavedSet)item.getItemId();
-////                Long id = tmp.get_id();
-//                Toast toast = Toast.makeText(getApplicationContext(),
-//                "Ваш выбор: " + idSetForDel, Toast.LENGTH_SHORT);
-//                toast.show();
-////                db.savedSetDao().deleteSetById(2);
-////                String b= "ла ла";
+
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    //        @Override
-//        public boolean  onContextItemSelected(MenuItem item){
 
 }
