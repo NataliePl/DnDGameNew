@@ -36,7 +36,7 @@ public class SpellAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return i;
     }
-
+//пункт списка
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
 
@@ -44,28 +44,16 @@ public class SpellAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.spell_from_set, parent, false);
         }
-
-        Spell s = getSpell(i);
-
-        //Заполнение пунктов
+        spellObjects.get(i);
         TextView level = view.findViewById(R.id.spellLevel);
-//        CheckBox checkBox = view.findViewById(R.id.checkBox);
+        String levelSrt = spellObjects.get(i).getLevel();
+        level.setText(levelSrt);
 
-//        checkBox.setChecked(spellObjects.contains(s));
-//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-//                if (checked)
-//                    spellObjects.add(s);
-//                else
-//                    spellObjects.remove(s);
-//            }
-//        });
-                int levelSrt = s.level; // todo getter?
-                level.setText(String.valueOf(levelSrt)); // Don't use Integer. You can use String.valueOf(levelSrt)
-                TextView name = view.findViewById(R.id.spellName);
-                name.setText(s.name);
+        TextView name = view.findViewById(R.id.spellName);
+        name.setText(spellObjects.get(i).getName());
+
         return view;
+
     }
 
     Spell getSpell(int i) {
