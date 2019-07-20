@@ -5,13 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.example.myapplication.db.Spell;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpellAdapter extends BaseAdapter {
@@ -44,7 +39,7 @@ public class SpellAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-//        selectedSpells = new ArrayList<>();
+
         View view = convertView;
         if (view == null) {
             view = lInflater.inflate(R.layout.spell_from_set, parent, false);

@@ -113,7 +113,7 @@ public class SetsListActivity extends AppCompatActivity {
 
         );
     }
-
+//заполнение лист вью всеми сохраненными наборами данных
     private List<SavedSet> getAllUserSets() {
         db = App.getInstance().getDatabase();
         SavedSetDao savedSetDao = db.savedSetDao();

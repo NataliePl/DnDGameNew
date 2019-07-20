@@ -113,8 +113,6 @@ public class SetSpellListActivity extends AppCompatActivity {
         };
         listView = findViewById(R.id.listViewSetSpell);
         listView.setAdapter(adapter);
-
-//                listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -136,7 +134,7 @@ public class SetSpellListActivity extends AppCompatActivity {
     private List<Spell> getAllSetsSpells() {
         AppDatabase db = App.getInstance().getDatabase();
         SpellDao spellDao = db.spellDao();
-        final List<Spell> spells = AppDatabase.getInstance(SetSpellListActivity.this).spellDao().getAllSavedCurrentSetSpells(setUserId);
+        final List<Spell> spells = spellDao.getAllSavedCurrentSetSpells(setUserId);
         return spells;
     }
 
