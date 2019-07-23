@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +14,21 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.db.AppDatabase;
 import com.example.myapplication.db.Spell;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.security.CryptoPrimitive.MAC;
 
 
 public class SpellActivity extends AppCompatActivity {
@@ -26,6 +36,8 @@ public class SpellActivity extends AppCompatActivity {
     int selectedLevel;
     ListView listView;
     private List<Spell> selectedSpells = new ArrayList<>();
+    AlertDialog dialog;
+    AlertDialog.Builder alert;
 
 
     @SuppressLint("StaticFieldLeak")
@@ -63,6 +75,7 @@ public class SpellActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         textView1.setText("Selected items are: " + selectedSpells);
+                        SpellActivity.this.DialodWindow();
                     }
                 }
         );
@@ -143,6 +156,39 @@ public class SpellActivity extends AppCompatActivity {
         final List<Spell> spells = AppDatabase.getInstance(SpellActivity.this).spellDao().getAllSelectedSpells(selectedClass, selectedLevel);
         return spells;
     }
+//метод реализации диалогового окна
+    void DialodWindow() {
+        LayoutInflater li = LayoutInflater.from(SpellActivity.this);
+        View promptsView = li.inflate(R.layout.dialog, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SpellActivity.this);
+        builder.setView(promptsView);
+        builder.setTitle("Сохранение набора");
+
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
+
+        builder.setCancelable(false);
+        builder.setNegativeButton("Отмена",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.setPositiveButton("Сохранить",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //todo код для сохранения выбранных заклинаний в БД в качестве отдельного набора
+                        Toast.makeText(SpellActivity.this, "Вы сделали правильный выбор",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+    }
+
+
 }
 
 

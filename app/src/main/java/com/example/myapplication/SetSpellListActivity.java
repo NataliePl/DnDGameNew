@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -86,7 +87,6 @@ public class SetSpellListActivity extends AppCompatActivity {
         final List<Spell> spells = AppDatabase.getInstance(SetSpellListActivity.this).spellDao().getAllSavedCurrentSetSpells(setUserId);
         return spells;
     }
-
 
 }
 

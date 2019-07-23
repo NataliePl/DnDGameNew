@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DnD Spells</string>
-    <string name="ButtonLookChoise">Проверка выборки</string>
+    <string name="ButtonLookChoise">Сохранить набор</string>
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
     <string name="ChooseClass">Выберите класс</string>
